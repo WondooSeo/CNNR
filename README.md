@@ -1,2 +1,2 @@
-# CNNR
+# Convolutional_Neural_Network_with_Regression
 Convolutional Neural Network with Regression
