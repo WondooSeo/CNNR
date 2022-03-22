@@ -59,13 +59,11 @@ def CNNR_model():
     CNNR_model = Sequential(name='CNNR_Model')
     # Stride = 1
     CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same', input_shape=(128, 128, 1)))
-    CNNR_model.add(BatchNormalization())
     CNNR_model.add(MaxPooling2D(2, 2))
     CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
     CNNR_model.add(BatchNormalization())
     CNNR_model.add(MaxPooling2D(2, 2))
     CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
-    CNNR_model.add(BatchNormalization())
     CNNR_model.add(MaxPooling2D(2, 2))
     CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
     CNNR_model.add(BatchNormalization())
@@ -73,12 +71,10 @@ def CNNR_model():
     CNNR_model.add(Flatten())
     CNNR_model.add(Dense(64, activation="relu"))
     CNNR_model.add(Dropout(0.2))
-    CNNR_model.add(Dense(32, activation="relu"))
-    CNNR_model.add(Dropout(0.2))
-    CNNR_model.add(Dense(16, activation="relu"))
+    CNNR_model.add(Dense(64, activation="relu"))
     CNNR_model.add(Dropout(0.2))
     CNNR_model.add(Dense(1, activation="sigmoid"))
-    CNNR_model.compile(optimizer='adam', loss=Huber(), metrics=['mae', 'mse'])
+    CNNR_model.compile(optimizer='adam', loss='mse', metrics=['mae', 'mse'])
     CNNR_model.summary()
     return CNNR_model
 
@@ -88,11 +84,11 @@ if __name__ == '__main__':
     image_method = 'GREIT'
 
     ## Stacking a dataset ##
-    img_path_dir = 'Write your dir'
+    img_path_dir = 'Your path'
     img_file_list = Load_File_Name(img_path_dir)
     img_data_num = len(img_file_list)
 
-    CP_path_dir = 'Write your dir'
+    CP_path_dir = 'Your path'
     CP_file_list = Load_File_Name(CP_path_dir)
     CP_data_num = len(CP_file_list)
 
@@ -111,7 +107,7 @@ if __name__ == '__main__':
     print("Data split Finished ...")
 
     CNNR = CNNR_model()
-    history = CNNR.fit(x_train, y_train, validation_split=0.15, epochs=100, batch_size=100, verbose=1, shuffle=True)
+    history = CNNR.fit(x_train, y_train, validation_split=0.15, epochs=100, batch_size=500, verbose=1, shuffle=True)
 
     # Show plot of loss and accuracy
     plt.plot(history.history['loss'])
@@ -121,6 +117,10 @@ if __name__ == '__main__':
     plt.ylabel('Loss')
     plt.legend(['Train', 'Val'], loc='upper right')
     plt.show()
+
+    test_scores = CNNR.evaluate(x_test, y_test, verbose=0, batch_size=10)
+    # print(CNNR.metrics_names) # → ['loss', 'mae']
+    print("Test Loss : ", test_scores[0])
 
     CNNR_path = 'CNNR.h5'
     CNNR.save(CNNR_path)
