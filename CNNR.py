@@ -69,10 +69,10 @@ def CNNR_model():
     CNNR_model.add(BatchNormalization())
     CNNR_model.add(MaxPooling2D(2, 2))
     CNNR_model.add(Flatten())
-    CNNR_model.add(Dense(64, activation="relu"))
-    CNNR_model.add(Dropout(0.2))
-    CNNR_model.add(Dense(64, activation="relu"))
-    CNNR_model.add(Dropout(0.2))
+    CNNR_model.add(Dense(16, activation="relu"))
+    # CNNR_model.add(Dropout(0.2))
+    CNNR_model.add(Dense(16, activation="relu"))
+    # CNNR_model.add(Dropout(0.2))
     CNNR_model.add(Dense(1, activation="sigmoid"))
     CNNR_model.compile(optimizer='adam', loss='mse', metrics=['mae', 'mse'])
     CNNR_model.summary()
@@ -84,11 +84,11 @@ if __name__ == '__main__':
     image_method = 'GREIT'
 
     ## Stacking a dataset ##
-    img_path_dir = 'Your path'
+    img_path_dir = './EIT_'+image_method
     img_file_list = Load_File_Name(img_path_dir)
     img_data_num = len(img_file_list)
 
-    CP_path_dir = 'Your path'
+    CP_path_dir = './EIT_'+image_method+'_CP_1'
     CP_file_list = Load_File_Name(CP_path_dir)
     CP_data_num = len(CP_file_list)
 
