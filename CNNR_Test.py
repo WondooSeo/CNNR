@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     CNNR_path = 'CNNR.h5'
     if (os.path.exists(CNNR_path)):
-        CNNR = tf.keras.models.load_model(CNNR_path, compile=True)
+        CNNR = tf.keras.models.load_model(CNNR_path, compile=False)
         # CNNR.summary()
         print("CNNR exist & loaded ...")
 
