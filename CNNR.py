@@ -119,7 +119,7 @@ if __name__ == '__main__':
     plt.show()
 
     test_scores = CNNR.evaluate(x_test, y_test, verbose=0, batch_size=10)
-    # print(CNNR.metrics_names) # → ['loss', 'mae']
+    # print(CNNR.metrics_names) # → ['loss', 'mae', 'mse']
     print("Test Loss : ", test_scores[0])
 
     CNNR_path = 'CNNR.h5'
