@@ -117,7 +117,7 @@ if __name__ == '__main__':
     plt.legend(['Train', 'Val'], loc='upper right')
     plt.show()
 
-    test_scores = CNNR.evaluate(x_test, y_test, verbose=0, batch_size=10)
+    test_scores = CNNR.evaluate(x_test, y_test, verbose=0)
     # print(CNNR.metrics_names) # → ['loss', 'mae', 'mse']
     print("Test Loss : ", test_scores[0])
 
