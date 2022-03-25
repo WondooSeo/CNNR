@@ -7,6 +7,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from tensorflow.keras.losses import Huber
 from tensorflow.keras import Sequential
+from tensorflow.keras.layers import ReLU
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dropout
@@ -58,16 +59,18 @@ def Stackin_Data(img_file_list, CP_file_list):
 def CNNR_model():
     CNNR_model = Sequential(name='CNNR_Model')
     # Stride = 1
-    CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same', input_shape=(128, 128, 1)))
-    CNNR_model.add(MaxPooling2D(2, 2))
-    CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
+    CNNR_model.add(Conv2D(filters=10, kernel_size=3, strides=2, padding='same', input_shape=(128, 128, 1)))
     CNNR_model.add(BatchNormalization())
-    CNNR_model.add(MaxPooling2D(2, 2))
-    CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
-    CNNR_model.add(MaxPooling2D(2, 2))
-    CNNR_model.add(Conv2D(filters=10, kernel_size=(4, 4), activation='relu', padding='same'))
+    CNNR_model.add(ReLU())
+    CNNR_model.add(Conv2D(filters=10, kernel_size=3, strides=2, activation='relu', padding='same'))
     CNNR_model.add(BatchNormalization())
-    CNNR_model.add(MaxPooling2D(2, 2))
+    CNNR_model.add(ReLU())
+    CNNR_model.add(Conv2D(filters=10, kernel_size=3, strides=2, activation='relu', padding='same'))
+    CNNR_model.add(BatchNormalization())
+    CNNR_model.add(ReLU())
+    CNNR_model.add(Conv2D(filters=10, kernel_size=3, strides=2, activation='relu', padding='same'))
+    CNNR_model.add(BatchNormalization())
+    CNNR_model.add(ReLU())
     CNNR_model.add(Flatten())
     CNNR_model.add(Dense(16, activation="relu"))
     # CNNR_model.add(Dropout(0.2))
@@ -80,9 +83,6 @@ def CNNR_model():
 
 
 if __name__ == '__main__':
-
-    image_method = 'GREIT'
-
     ## Stacking a dataset ##
     img_path_dir = 'your image path'
     img_file_list = Load_File_Name(img_path_dir)
