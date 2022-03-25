@@ -5,7 +5,6 @@ import sys
 from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
-from tensorflow.keras.losses import Huber
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import ReLU
 from tensorflow.keras.layers import Dense
